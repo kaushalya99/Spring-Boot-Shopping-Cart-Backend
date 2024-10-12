@@ -70,6 +70,7 @@ public class CategoryController {
         }
     }
 
+
     @DeleteMapping("/category/{id}/update")
     public ResponseEntity<ApiResponse> updateCategory(@PathVariable Long id){
         try {
