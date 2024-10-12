@@ -1,5 +1,6 @@
 package com.example.dream_shops.service.category;
 
+import com.example.dream_shops.exception.AlreadyExistsException;
 import com.example.dream_shops.exception.ResourceNotFoundException;
 import com.example.dream_shops.model.Category;
 import com.example.dream_shops.repository.CategoryRepository;
@@ -36,7 +37,7 @@ public class CategoryService implements ICategoryService {
     public Category addCategory(Category category) {
         return Optional.of(category).filter(c -> !categoryRepository.existsByName(c.getName()))
                 .map(categoryRepository :: save)
-                .orElseThrow(() -> new FileSystemAlreadyExistsException(category.getName()+ " already exists"));
+                .orElseThrow(() -> new AlreadyExistsException(category.getName()+ " already exists"));
     }
 
     @Override
@@ -53,5 +54,10 @@ public class CategoryService implements ICategoryService {
                  .ifPresentOrElse(categoryRepository::delete,()-> {
                          throw new ResourceNotFoundException("Category not found!");
         });
+    }
+
+    @Override
+    public Category updateCategoryById(Long id) {
+        return null;
     }
 }
